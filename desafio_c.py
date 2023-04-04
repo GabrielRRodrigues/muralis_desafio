@@ -2,60 +2,69 @@ import mysql.connector
 import requests
 
 # Conexão com os BD
-conexao_bd1 = mysql.connector.connect(host='localhost', database= 'bd01', user= 'root', password='G1935@@_sr')
-conexao_bd2 = mysql.connector.connect(host='localhost', database= 'bd02', user= 'root', password='G1935@@_sr')
-
-if conexao_bd1.is_connected():
+def conectar():
+    try:
+        global conexao_bd1, conexao_bd2
+        conexao_bd1 = mysql.connector.connect(host='localhost', database= 'bd01', user= 'root', password='G1935@@_sr')
+        conexao_bd2 = mysql.connector.connect(host='localhost', database= 'bd02', user= 'root', password='G1935@@_sr')
+    except mysql.connector.Error as e:
+        print(f'Erro de conexão com o BD: {e}')
+        raise
+try:
+    conectar()
     cursor1 = conexao_bd1.cursor()
 
     # Recuperando dados de interesse da tabela funcionarios
     cursor1.execute('SELECT ID, RG, CPF, Data_admissao, CEP FROM funcionarios ')
     dados = cursor1.fetchall()
 
-    if conexao_bd2.is_connected():
-        cursor2 = conexao_bd2.cursor()
+    cursor2 = conexao_bd2.cursor()
+
+    for funcionario in dados:
+        # Armazenando dados recuperados para uso
+        id_func = funcionario[0]
+        rg = funcionario[1]
+        cpf = funcionario[2]
+        data_admissao = funcionario[3]
+        cep = funcionario[4]
+
         try:
-            for funcionario in dados:
-                # Armazenando dados recuperados para uso
-                id_func = funcionario[0]
-                rg = funcionario[1]
-                cpf = funcionario[2]
-                data_admissao = funcionario[3]
-                cep = funcionario[4]
+            # Requisição via API
+            response = requests.get(f'https://viacep.com.br/ws/{cep}/json/')
+            response.raise_for_status()
 
-                # Requisição via API
-                response = requests.get(f'https://viacep.com.br/ws/{cep}/json/')
-                if response.status_code == 200:
-                    dados_endereco = response.json()
-                    endereco = dados_endereco['logradouro']
-                    bairro = dados_endereco['bairro']
-                    cidade = dados_endereco['localidade']
-                else:
-                    print(f'Erro ao consultar CEP {cep}')
+            dados_endereco = response.json()
+            endereco = dados_endereco['logradouro']
+            bairro = dados_endereco['bairro']
+            cidade = dados_endereco['localidade']
+        except requests.exceptions.RequestException as e:
+            print(f'Erro ao consultar CEP {cep}: {e}')
+            continue
 
-                # Atualizando dados na tabela funcionarios_fabrica
-                cursor2.execute(f'UPDATE funcionarios_fabrica SET RG = "{rg}", CPF = "{cpf}", '
-                                f'Data_admissao = "{data_admissao}", Data_hora_alteracao_do_registro = NOW(), '
-                                f'CEP = "{cep}", ENDERECO = "{endereco}", BAIRRO = "{bairro}", CIDADE = "{cidade}" WHERE id = {id_func}')
+        try:
+            # Atualizando dados na tabela funcionarios_fabrica
+            cursor2.execute(f'UPDATE funcionarios_fabrica SET RG = "{rg}", CPF = "{cpf}", Data_admissao = "{data_admissao}", '
+                            f'Data_hora_alteracao_do_registro = NOW(), CEP = "{cep}", ENDERECO = "{endereco}", '
+                            f'BAIRRO = "{bairro}", CIDADE = "{cidade}" WHERE id = {id_func}')
+            # conexao_bd2.commit()
+        except mysql.connector.Error as e:
+            print(f'Erro ao atualizar dados do funcionário {id_func} no BD: {e}')
+            continue
 
-                # conexao_bd2.commit()
-            cursor2.execute('select * from funcionarios_fabrica')
-            dados1 = cursor2.fetchall()
-            for linha in dados1:
-                print(linha)
+    cursor2.execute('select * from funcionarios_fabrica')
+    dados1 = cursor2.fetchall()
+    for linha in dados1:
+        print(linha)
 
-        except Exception as e:
-            print(f'Erro: {e}')
+except mysql.connector.Error as e:
+    print(f'Erro ao conectar no BD: {e}')
 
 # Encerrando conexão com BDs
-if conexao_bd1.is_connected():
+finally:
     cursor1.close()
     conexao_bd1.close()
-    print('Conexão BD01 encerrada!')
+    print('Conexão com BD01 encerrada com sucesso!')
 
-if conexao_bd2.is_connected():
     cursor2.close()
     conexao_bd2.close()
-    print('Conexão BD02 encerrada!')
-
-
+    print('Conexão com BD02 encerrada com sucesso!')
