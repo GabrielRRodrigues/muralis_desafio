@@ -1,24 +1,29 @@
 import mysql.connector
 import requests
 
+
 # Conexão com os BD
-def conectar():
+def _conectar():
     try:
         global conexao_bd1, conexao_bd2
-        conexao_bd1 = mysql.connector.connect(host='localhost', database= 'bd01', user= 'root', password='G1935@@_sr')
-        conexao_bd2 = mysql.connector.connect(host='localhost', database= 'bd02', user= 'root', password='G1935@@_sr')
-    except mysql.connector.Error as e:
-        print(f'Erro de conexão com o BD: {e}')
+        conexao_bd1 = mysql.connector.connect(host='localhost', database='bd01', user='root', password='G1935@@_sr')
+        conexao_bd2 = mysql.connector.connect(host='localhost', database='bd02', user='root', password='G1935@@_sr')
+        return conexao_bd1, conexao_bd2
+    except mysql.connector.Error as ex:
+        print(f'Erro de conexão com o BD: {ex}')
         raise
+
+
+conexao_bd1, conexao_bd2 = _conectar()
+
+cursor1 = conexao_bd1.cursor()
+cursor2 = conexao_bd2.cursor()
+
 try:
-    conectar()
-    cursor1 = conexao_bd1.cursor()
 
     # Recuperando dados de interesse da tabela funcionarios
     cursor1.execute('SELECT ID, RG, CPF, Data_admissao, CEP FROM funcionarios ')
     dados = cursor1.fetchall()
-
-    cursor2 = conexao_bd2.cursor()
 
     for funcionario in dados:
         # Armazenando dados recuperados para uso
@@ -43,18 +48,14 @@ try:
 
         try:
             # Atualizando dados na tabela funcionarios_fabrica
-            cursor2.execute(f'UPDATE funcionarios_fabrica SET RG = "{rg}", CPF = "{cpf}", Data_admissao = "{data_admissao}", '
-                            f'Data_hora_alteracao_do_registro = NOW(), CEP = "{cep}", ENDERECO = "{endereco}", '
-                            f'BAIRRO = "{bairro}", CIDADE = "{cidade}" WHERE id = {id_func}')
-            # conexao_bd2.commit()
+            cursor2.execute(f'UPDATE funcionarios_fabrica SET RG = "{rg}", CPF = "{cpf}", '
+                            f'Data_admissao = "{data_admissao}", Data_hora_alteracao_do_registro = NOW(), '
+                            f'CEP = "{cep}", ENDERECO = "{endereco}", BAIRRO = "{bairro}", CIDADE = "{cidade}" '
+                            f'WHERE id = {id_func}')
+            conexao_bd2.commit()
         except mysql.connector.Error as e:
             print(f'Erro ao atualizar dados do funcionário {id_func} no BD: {e}')
             continue
-
-    cursor2.execute('select * from funcionarios_fabrica')
-    dados1 = cursor2.fetchall()
-    for linha in dados1:
-        print(linha)
 
 except mysql.connector.Error as e:
     print(f'Erro ao conectar no BD: {e}')
