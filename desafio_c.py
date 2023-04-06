@@ -6,8 +6,16 @@ import requests
 def _conectar():
     try:
         global conexao_bd1, conexao_bd2
-        conexao_bd1 = mysql.connector.connect(host='localhost', database='bd01', user='root', password='G1935@@_sr')
-        conexao_bd2 = mysql.connector.connect(host='localhost', database='bd02', user='root', password='G1935@@_sr')
+        conexao_bd1 = mysql.connector.connect(
+            host='localhost',
+            database='bd01',
+            user='root',
+            password='G1935@@_sr')
+        conexao_bd2 = mysql.connector.connect(
+            host='localhost',
+            database='bd02',
+            user='root',
+            password='G1935@@_sr')
         return conexao_bd1, conexao_bd2
     except mysql.connector.Error as ex:
         print(f'Erro de conexão com o BD: {ex}')

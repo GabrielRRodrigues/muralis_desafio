@@ -18,16 +18,9 @@ create table funcionarios_fabrica(
     primary key (ID)
 ) default charset=utf8mb4;
 
-insert into funcionarios_fabrica
+insert into BD02.funcionarios_fabrica
 	(ID, NOME)
-values
-	(default, 'João Silva'),
-	(default, 'Maria Santos'),
-	(default, 'José Pereira'),
-	(default, 'Ana Oliveira'),
-	(default, 'Ricardo Alves'),
-	(default, 'Carla Mendes'),
-	(default, 'Márcio Rocha'),
-	(default, 'Lívia Nogueira'),
-	(default, 'Gabriel Fernandes'),
-	(default, 'Juliana Costa');
+select ID, Nome from bd01.funcionarios;
+	
+
+    
