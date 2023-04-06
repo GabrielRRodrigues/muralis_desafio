@@ -5,8 +5,8 @@ default collate utf8mb4_general_ci;
 use bd02;
 
 create table funcionarios_fabrica(
-	ID int not null auto_increment,
-	NOME varchar(50) not null,
+    ID int not null auto_increment,
+    NOME varchar(50) not null,
     RG varchar(20),
     CPF varchar(15),
     Data_admissao date,
