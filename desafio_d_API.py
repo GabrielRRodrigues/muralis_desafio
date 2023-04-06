@@ -9,7 +9,7 @@ from logging import info, basicConfig
 
 app = Flask(__name__)
 
-handler = TimedRotatingFileHandler(r'\LOGS\api.log', when='d', interval=1, backupCount=2, encoding='utf-8')
+handler = TimedRotatingFileHandler(r'LOGS\api.log', when='d', interval=1, backupCount=2, encoding='utf-8')
 logging.basicConfig(
     level=logging.INFO,
     handlers=[handler],

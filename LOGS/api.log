@@ -1,3 +1,18 @@
 2023-04-09 15:42:57,087 werkzeug WARNING  * Debugger is active!
 2023-04-09 15:42:57,120 werkzeug INFO  * Debugger PIN: 520-542-148
 2023-04-09 15:43:49,658 werkzeug INFO  * Detected change in 'C:\\Users\\ezioa\\Documents\\GitHub\\muralis_desafio\\desafio_d_API.py', reloading
+2023-04-06 15:54:36,025 werkzeug INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-04-06 15:54:36,026 werkzeug INFO [33mPress CTRL+C to quit[0m
+2023-04-06 15:54:36,028 werkzeug INFO  * Restarting with stat
+2023-04-06 15:54:37,038 werkzeug WARNING  * Debugger is active!
+2023-04-06 15:54:37,043 werkzeug INFO  * Debugger PIN: 520-542-148
+2023-04-06 15:56:42,155 werkzeug INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-04-06 15:56:42,156 werkzeug INFO [33mPress CTRL+C to quit[0m
+2023-04-06 15:56:42,159 werkzeug INFO  * Restarting with stat
+2023-04-06 15:56:43,164 werkzeug WARNING  * Debugger is active!
+2023-04-06 15:56:43,169 werkzeug INFO  * Debugger PIN: 520-542-148
+2023-04-06 15:56:55,269 root INFO BD acessado!
+2023-04-06 15:56:55,274 root INFO Funcionário consultado!
+2023-04-06 15:56:55,275 werkzeug INFO 127.0.0.1 - - [06/Apr/2023 15:56:55] "GET /buscar_funcionario/11 HTTP/1.1" 200 -
