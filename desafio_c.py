@@ -28,7 +28,6 @@ cursor1 = conexao_bd1.cursor()
 cursor2 = conexao_bd2.cursor()
 
 try:
-
     # Recuperando dados de interesse da tabela funcionarios
     cursor1.execute('SELECT ID, RG, CPF, Data_admissao, CEP FROM funcionarios ')
     dados = cursor1.fetchall()
@@ -72,8 +71,6 @@ except mysql.connector.Error as e:
 finally:
     cursor1.close()
     conexao_bd1.close()
-    print('Conexão com BD01 encerrada com sucesso!')
 
     cursor2.close()
     conexao_bd2.close()
-    print('Conexão com BD02 encerrada com sucesso!')
