@@ -1,5 +1,4 @@
 import logging
-
 import mysql.connector
 import requests
 from datetime import datetime
@@ -49,6 +48,7 @@ def _busca_cep(cep):  # Consulta o CEP na API ViaCEP
         return dados_endereco_tratados
     except requests.exceptions.RequestException as e:
         return f'Erro ao consultar CEP {cep}: {e}'
+
 
 # Indicação de rota HTTP e tipo da solicitação
 @app.route('/cadastrar_funcionario/', methods=['POST'])
