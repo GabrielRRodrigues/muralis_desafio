@@ -5,6 +5,7 @@ from datetime import datetime
 from flask import Flask, request, make_response, jsonify
 from logging.handlers import TimedRotatingFileHandler
 from logging import info, basicConfig
+import json
 
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
@@ -73,6 +74,9 @@ def cadastrar_funcionario():
         conexao_bd2.commit()
         info('Funcionário cadastrado!')
 
+        cursor_create.execute(f'SELECT *FROM funcionarios_fabrica WHERE ID=(SELECT MAX(id) FROM funcionarios_fabrica);')
+        funcionario = cursor_create.fetchone()
+
         return make_response(
             jsonify(
                 mensagem='Funcionário cadastrado com sucesso.',
@@ -90,7 +94,7 @@ def buscar_funcionario(ID):
     cursor_read = _conectar()
     try:
         cursor_read.execute(f'SELECT * FROM funcionarios_fabrica WHERE ID = {ID}')
-        funcionario = cursor_read.fetchall()
+        funcionario = cursor_read.fetchone()
         info('Funcionário consultado!')
 
         return make_response(
