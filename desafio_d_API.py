@@ -8,6 +8,7 @@ from logging.handlers import TimedRotatingFileHandler
 from logging import info, basicConfig
 
 app = Flask(__name__)
+app.config['JSON_SORT_KEYS'] = False
 
 handler = TimedRotatingFileHandler(r'LOGS\api.log', when='d', interval=1, backupCount=2, encoding='utf-8')
 logging.basicConfig(
@@ -73,7 +74,9 @@ def cadastrar_funcionario():
         info('Funcionário cadastrado!')
 
         return make_response(
-            jsonify(funcionario)
+            jsonify(
+                mensagem='Funcionário cadastrado com sucesso.',
+                Funcionário=funcionario)
         )
     except mysql.connector.errors as e:
         return f'Erro ao cadastrar funcionário: {e}'
@@ -91,7 +94,9 @@ def buscar_funcionario(ID):
         info('Funcionário consultado!')
 
         return make_response(
-            funcionario
+            jsonify(
+                mensagem='Funcionário encontrado.',
+                Funcionário=funcionario)
         )
     except mysql.connector.errors as e:
         return f'Erro ao buscar funcionários: {e}'
@@ -123,7 +128,9 @@ def atualizar_funcionario(ID):
         info('Funcionário atualizado!')
 
         return make_response(
-            jsonify(funcionario)
+            jsonify(
+                mensagem='Funcionário atualizado com sucesso.',
+                Funcionário=funcionario)
         )
     except mysql.connector.errors as e:
         return f'Erro ao buscar funcionários: {e}'
