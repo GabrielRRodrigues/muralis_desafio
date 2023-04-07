@@ -16,3 +16,18 @@
 2023-04-06 15:56:55,269 root INFO BD acessado!
 2023-04-06 15:56:55,274 root INFO Funcionário consultado!
 2023-04-06 15:56:55,275 werkzeug INFO 127.0.0.1 - - [06/Apr/2023 15:56:55] "GET /buscar_funcionario/11 HTTP/1.1" 200 -
+2023-04-06 23:30:15,635 werkzeug INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-04-06 23:30:15,636 werkzeug INFO [33mPress CTRL+C to quit[0m
+2023-04-06 23:30:15,640 werkzeug INFO  * Restarting with stat
+2023-04-06 23:30:16,405 werkzeug WARNING  * Debugger is active!
+2023-04-06 23:30:16,414 werkzeug INFO  * Debugger PIN: 520-542-148
+2023-04-06 23:31:00,932 root INFO BD acessado!
+2023-04-06 23:31:00,939 root INFO Funcionário consultado!
+2023-04-06 23:31:00,943 werkzeug INFO 127.0.0.1 - - [06/Apr/2023 23:31:00] "GET /buscar_funcionario/11 HTTP/1.1" 200 -
+2023-04-06 23:33:03,239 root INFO BD acessado!
+2023-04-06 23:33:03,261 root INFO Funcionário cadastrado!
+2023-04-06 23:33:03,262 werkzeug INFO 127.0.0.1 - - [06/Apr/2023 23:33:03] "POST /cadastrar_funcionario/ HTTP/1.1" 200 -
+2023-04-06 23:33:52,259 root INFO BD acessado!
+2023-04-06 23:33:52,269 root INFO Funcionário consultado!
+2023-04-06 23:33:52,269 werkzeug INFO 127.0.0.1 - - [06/Apr/2023 23:33:52] "GET /buscar_funcionario/13 HTTP/1.1" 200 -
