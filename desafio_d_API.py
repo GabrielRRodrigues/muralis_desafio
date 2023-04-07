@@ -5,7 +5,6 @@ from datetime import datetime
 from flask import Flask, request, make_response, jsonify
 from logging.handlers import TimedRotatingFileHandler
 from logging import info, basicConfig
-import json
 
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
