@@ -526,3 +526,25 @@
 2023-04-07 02:40:40,048 werkzeug INFO  * Restarting with stat
 2023-04-07 02:40:41,013 werkzeug WARNING  * Debugger is active!
 2023-04-07 02:40:41,017 werkzeug INFO  * Debugger PIN: 520-542-148
+2023-04-07 02:48:48,842 werkzeug INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-04-07 02:48:48,842 werkzeug INFO [33mPress CTRL+C to quit[0m
+2023-04-07 02:48:48,847 werkzeug INFO  * Restarting with stat
+2023-04-07 02:48:49,811 werkzeug WARNING  * Debugger is active!
+2023-04-07 02:48:49,818 werkzeug INFO  * Debugger PIN: 520-542-148
+2023-04-07 02:48:53,357 root INFO BD acessado!
+2023-04-07 02:48:53,366 root INFO Funcionário cadastrado!
+2023-04-07 02:48:53,374 werkzeug INFO 127.0.0.1 - - [07/Apr/2023 02:48:53] "POST /cadastrar_funcionario/ HTTP/1.1" 200 -
+2023-04-07 02:50:43,614 werkzeug INFO  * Detected change in 'C:\\Users\\ezioa\\Documents\\GitHub\\muralis_desafio\\desafio_d_API.py', reloading
+2023-04-07 02:50:43,739 werkzeug INFO  * Restarting with stat
+2023-04-07 02:50:44,654 werkzeug WARNING  * Debugger is active!
+2023-04-07 02:50:44,657 werkzeug INFO  * Debugger PIN: 520-542-148
+2023-04-07 02:51:34,685 root INFO BD acessado!
+2023-04-07 02:51:34,688 root INFO Funcionário consultado!
+2023-04-07 02:51:34,690 werkzeug INFO 127.0.0.1 - - [07/Apr/2023 02:51:34] "GET /buscar_funcionario/8 HTTP/1.1" 200 -
+2023-04-07 02:51:42,763 root INFO BD acessado!
+2023-04-07 02:51:42,771 root INFO Funcionário cadastrado!
+2023-04-07 02:51:42,778 werkzeug INFO 127.0.0.1 - - [07/Apr/2023 02:51:42] "POST /cadastrar_funcionario/ HTTP/1.1" 200 -
+2023-04-07 02:52:24,300 root INFO BD acessado!
+2023-04-07 02:52:24,308 root INFO Funcionário atualizado!
+2023-04-07 02:52:24,310 werkzeug INFO 127.0.0.1 - - [07/Apr/2023 02:52:24] "PUT /atualizar_funcionario/2 HTTP/1.1" 200 -
