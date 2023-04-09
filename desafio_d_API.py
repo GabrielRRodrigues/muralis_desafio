@@ -1,9 +1,20 @@
+import logging
+
 import mysql.connector
 import requests
 from datetime import datetime
 from flask import Flask, request, make_response, jsonify
+from logging.handlers import TimedRotatingFileHandler
+from logging import info, basicConfig
 
 app = Flask(__name__)
+
+handler = TimedRotatingFileHandler(r'\LOGS\api.log', when='d', interval=1, backupCount=2, encoding='utf-8')
+logging.basicConfig(
+    level=logging.INFO,
+    handlers=[handler],
+    format='%(asctime)s %(name)s %(levelname)s %(message)s',
+)
 
 
 def _conectar():  # Conexão com o BD BD02
@@ -14,6 +25,7 @@ def _conectar():  # Conexão com o BD BD02
             database='bd02',
             user='root',
             password='G1935@@_sr')
+        info('BD acessado!')
         cursor = conexao_bd2.cursor()
         return cursor
     except mysql.connector.Error as e:
@@ -58,6 +70,7 @@ def cadastrar_funcionario():
                               f'"{dados_endereco_tratados[0]}", "{dados_endereco_tratados[1]}", '
                               f'"{dados_endereco_tratados[2]}")')
         conexao_bd2.commit()
+        info('Funcionário cadastrado!')
 
         return make_response(
             jsonify(funcionario)
@@ -75,6 +88,7 @@ def buscar_funcionario(ID):
     try:
         cursor_read.execute(f'SELECT * FROM funcionarios_fabrica WHERE ID = {ID}')
         funcionario = cursor_read.fetchall()
+        info('Funcionário consultado!')
 
         return make_response(
             funcionario
@@ -106,6 +120,8 @@ def atualizar_funcionario(ID):
                               f'BAIRRO = "{dados_endereco_tratados[1]}", CIDADE = "{dados_endereco_tratados[2]}" '
                               f'WHERE id = {ID}')
         conexao_bd2.commit()
+        info('Funcionário atualizado!')
+
         return make_response(
             jsonify(funcionario)
         )
@@ -122,6 +138,8 @@ def deletar_funcionario(ID):
     try:
         cursor_delete.execute(f'DELETE FROM funcionarios_fabrica WHERE ID = {ID}')
         conexao_bd2.commit()
+        info('Funcionário deletado!')
+
         return 'Funcionário deletado com sucesso!'
     except mysql.connector.errors as e:
         return f'Erro ao deletar funcionário: {e}'
